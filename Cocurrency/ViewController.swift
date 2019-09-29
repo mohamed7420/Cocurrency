@@ -10,9 +10,29 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var labelText: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        // learn concurrency code manged by dispatch group
+        
+        
+ 
+        
+        // UILabel.text must be used from main thread only
+        DispatchQueue.global(qos: .background).async {
+            
+            print("On the background")
+            
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3, execute: {
+                
+                print("On the main thread")
+                self.labelText.text = "Mohamed Osama is a iOS developer"
+                
+            })
+        }
+
+        
     }
 
 
